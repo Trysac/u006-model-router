@@ -9,4 +9,5 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- Add `route` and `run` for rule-based LLM model routing (cost, latency, quality and capability rules, explained exclusions, ordered fallback) with the `LLMPort`, `RecordedLLM` and `FakeLLM` doubles and typed errors.
 - Initial project structure from the factory utility template.

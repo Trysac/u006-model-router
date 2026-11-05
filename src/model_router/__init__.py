@@ -1,21 +1,34 @@
-"""Choose an LLM by cost, latency and quality rules over caller-supplied model profiles, with capability filters, explained exclusions and ordered fallback"""
+"""Explainable, rule-based LLM model routing with ordered fallback."""
 
 from __future__ import annotations
 
-__all__ = ["__version__", "normalize"]
+import logging
+
+from .errors import AllModelsFailedError, NoEligibleModelError, RetryableError, RouterError
+from .llm import FakeLLM, LLMPort, Message, RecordedLLM, RecordingExhaustedError
+from .models import ModelProfile, RouteDecision, RouteRequest
+from .router import route
+from .runner import RunResult, run
+
+__all__ = [
+    "AllModelsFailedError",
+    "FakeLLM",
+    "LLMPort",
+    "Message",
+    "ModelProfile",
+    "NoEligibleModelError",
+    "RecordedLLM",
+    "RecordingExhaustedError",
+    "RetryableError",
+    "RouteDecision",
+    "RouteRequest",
+    "RouterError",
+    "RunResult",
+    "__version__",
+    "route",
+    "run",
+]
 
 __version__ = "0.1.0"
 
-
-def normalize(value: str) -> str:
-    """Return ``value`` trimmed and lower-cased.
-
-    Placeholder API created by the template: replace it with the utility's real behavior.
-
-    Raises:
-        ValueError: if ``value`` is empty or only whitespace.
-    """
-    cleaned = value.strip()
-    if not cleaned:
-        raise ValueError("value must not be empty")
-    return cleaned.lower()
+logging.getLogger(__name__).addHandler(logging.NullHandler())
