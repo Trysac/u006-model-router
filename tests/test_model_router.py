@@ -610,18 +610,10 @@ def test_run_accepts_all_roles() -> None:
 
 
 def test_acceptance_statements_verbatim() -> None:
-    ordering = (
-        "On profiles a (input_per_mtok Decimal('1'), p50_latency_ms 300, quality 0.5), "
-        "b (Decimal('3'), 100, 0.9) and c (Decimal('2'), 200, 0.8), all with "
-        "output_per_mtok Decimal('0'), and RouteRequest(input_tokens=1_000_000, "
-        "expected_output_tokens=0): cheapest orders ['a', 'c', 'b'], fastest and best "
-        "order ['b', 'c', 'a'], and balanced orders ['b', 'c', 'a'] with scores within "
-        "1e-9 of {'a': 0.3, 'b': 0.7, 'c': 0.625}"
-    )
-    fallback = (
-        "run calls ports in candidate order: a TimeoutError from the first and 'ok' "
-        "from the second returns RunResult(model_id='b', output='ok', attempts=2)"
-    )
+    # fmt: off
+    ordering = "On profiles a (input_per_mtok Decimal('1'), p50_latency_ms 300, quality 0.5), b (Decimal('3'), 100, 0.9) and c (Decimal('2'), 200, 0.8), all with output_per_mtok Decimal('0'), and RouteRequest(input_tokens=1_000_000, expected_output_tokens=0): cheapest orders ['a', 'c', 'b'], fastest and best order ['b', 'c', 'a'], and balanced orders ['b', 'c', 'a'] with scores within 1e-9 of {'a': 0.3, 'b': 0.7, 'c': 0.625}"  # noqa: E501
+    fallback = "run calls ports in candidate order: a TimeoutError from the first and 'ok' from the second returns RunResult(model_id='b', output='ok', attempts=2)"  # noqa: E501
+    # fmt: on
     assert ordering and fallback
     profiles = abc_profiles()
     assert ids(route(profiles, ABC_REQUEST, "cheapest")) == ["a", "c", "b"]
