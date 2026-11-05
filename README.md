@@ -40,19 +40,30 @@ from model_router import ModelProfile, RecordedLLM, RouteRequest, route, run
 # Illustrative figures, retrieved 2026-11-05; refresh before use.
 profiles = [
     ModelProfile(
-        id="small", provider="acme", input_per_mtok=Decimal("0.15"),
-        output_per_mtok=Decimal("0.60"), p50_latency_ms=400, quality=0.6,
-        context_window=128_000, capabilities=frozenset({"tools"}),
+        id="small",
+        provider="acme",
+        input_per_mtok=Decimal("0.15"),
+        output_per_mtok=Decimal("0.60"),
+        p50_latency_ms=400,
+        quality=0.6,
+        context_window=128_000,
+        capabilities=frozenset({"tools"}),
     ),
     ModelProfile(
-        id="large", provider="acme", input_per_mtok=Decimal("3"),
-        output_per_mtok=Decimal("15"), p50_latency_ms=1200, quality=0.95,
-        context_window=200_000, capabilities=frozenset({"tools", "vision"}),
+        id="large",
+        provider="acme",
+        input_per_mtok=Decimal("3"),
+        output_per_mtok=Decimal("15"),
+        p50_latency_ms=1200,
+        quality=0.95,
+        context_window=200_000,
+        capabilities=frozenset({"tools", "vision"}),
     ),
 ]
 
 request = RouteRequest(
-    input_tokens=2000, expected_output_tokens=300,
+    input_tokens=2000,
+    expected_output_tokens=300,
     required_capabilities=frozenset({"tools"}),
 )
 decision = route(profiles, request, policy="balanced")
